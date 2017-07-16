@@ -10,7 +10,7 @@
           animation: none;
   direction: ltr;
   border: 0;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 24px;
   border-radius: 5px;
   position: absolute;
@@ -132,7 +132,6 @@
   color: #fff;
   fill: #fff;
   height: 28px;
-  line-height: 1;
   text-align: center;
   position: relative;
   -webkit-user-select: none;
@@ -140,11 +139,11 @@
       -ms-user-select: none;
           user-select: none;
   overflow: hidden;
+  padding-bottom: 8px;
 }
 .flatpickr-prev-month,
 .flatpickr-next-month {
   text-decoration: none;
-  cursor: pointer;
   position: absolute;
   top: 0px;
   line-height: 16px;
@@ -194,7 +193,7 @@
 }
 .flatpickr-prev-month:hover svg,
 .flatpickr-next-month:hover svg {
-  fill: #f64747;
+  fill: #2196f3;
 }
 .flatpickr-prev-month svg,
 .flatpickr-next-month svg {
@@ -314,7 +313,7 @@
 }
 .flatpickr-current-month span.cur-month {
   font-family: inherit;
-  font-weight: 700;
+  font-weight: 400;
   color: inherit;
   display: inline-block;
   margin-left: 0.5ch;
@@ -382,7 +381,6 @@ span.flatpickr-weekday {
   font-size: 90%;
   background: #1bbc9b;
   color: rgba(0,0,0,0.54);
-  line-height: 1;
   margin: 0;
   text-align: center;
   display: block;
@@ -390,7 +388,7 @@ span.flatpickr-weekday {
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  font-weight: bolder;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
 }
 .dayContainer,
 .flatpickr-weeks {
@@ -464,7 +462,6 @@ span.flatpickr-weekday {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   color: #484848;
-  cursor: pointer;
   font-weight: 400;
   width: 14.2857143%;
   -webkit-flex-basis: 14.2857143%;
@@ -494,10 +491,19 @@ span.flatpickr-weekday {
 .flatpickr-day:focus,
 .flatpickr-day.prevMonthDay:focus,
 .flatpickr-day.nextMonthDay:focus {
-  cursor: pointer;
   outline: 0;
   background: #e2e2e2;
   border-color: #e2e2e2;
+}
+.flatpickr-day.marked:after {
+  content: "•";
+  position: absolute;
+  top: 11px;
+  left: 16px;
+  color: #2196f3;
+}
+.flatpickr-day.selected.marked:after {
+  color: #fff;
 }
 .flatpickr-day.today {
   border-color: #bbb;
@@ -717,9 +723,6 @@ span.flatpickr-weekday {
 .flatpickr-time .flatpickr-am-pm:hover,
 .flatpickr-time .flatpickr-am-pm:focus {
   background: #ececec;
-}
-.flatpickr-input[readonly] {
-  cursor: pointer;
 }
 @-webkit-keyframes fpFadeInDown {
   from {

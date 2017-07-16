@@ -514,6 +514,7 @@ function FlatpickrInstance(element, config) {
 
 	function createDay(className, date, dayNumber, i) {
 		const dateIsEnabled = isEnabled(date, true),
+			dateIsMarked = isMarked(date),
 			dayElement = createElement(
 				"span",
 				"flatpickr-day " + className,
@@ -567,6 +568,10 @@ function FlatpickrInstance(element, config) {
 			)
 				self.maxRangeDate = date;
 		}
+
+		if (dateIsMarked) 
+			dayElement.classList.add("marked");
+        
 
 		if (self.config.mode === "range") {
 			if (isDateInRange(date) && !isDateSelected(date))
@@ -1060,7 +1065,9 @@ function FlatpickrInstance(element, config) {
 			"currentMonthElement", "currentYearElement", "navigationCurrentMonth",
 			"selectedDateElem", "config"
 		].forEach(k => {
-			try { delete self[k] }
+			try {
+				delete self[k]
+			}
 			catch (e) {}
 		})
 	}
@@ -1131,6 +1138,15 @@ function FlatpickrInstance(element, config) {
 			self.redraw();
 			triggerEvent("YearChange");
 		}
+	}
+
+	function isMarked(date) {
+		if (self.config.mark)
+			return self.config.mark(date);
+        
+		else
+			return false;
+        
 	}
 
 	function isEnabled(date, timeless) {
@@ -1499,7 +1515,7 @@ function FlatpickrInstance(element, config) {
 				self.config[hooks[i]] = arrayify(
 					self.config[hooks[i]] || []
 				)
-				.map(bindToInstance);
+					.map(bindToInstance);
 			}
 		}
 
@@ -1575,15 +1591,8 @@ function FlatpickrInstance(element, config) {
 
 		self.calendarContainer.style.top = `${top}px`;
 
-		if (!rightMost) {
-			self.calendarContainer.style.left = `${left}px`;
-			self.calendarContainer.style.right = "auto";
-		}
-
-		else {
-			self.calendarContainer.style.left = "auto";
-			self.calendarContainer.style.right = `${right}px`;
-		}
+		self.calendarContainer.style.left = `${left}px`;
+		self.calendarContainer.style.right = "auto";
 	}
 
 	function redraw() {
